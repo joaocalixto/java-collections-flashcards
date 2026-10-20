@@ -72,6 +72,42 @@ const decks=[
 ['Como usar duas filas para formar turmas com médias semelhantes?','Uma min-heap oferece a menor média e uma max-heap oferece a maior. Juntar extremos tende a compensar médias, mas não garante o melhor equilíbrio possível.'],
 ['Por que precisamos de um Set no exercício das duas filas de alunos?','Porque cada aluno aparece nas duas filas; o Set regista alunos já atribuídos e evita duplicação entre turmas.'],
 ['Qual a diferença entre Heap de PriorityQueue e Heap Memory da JVM?','Binary Heap é uma estrutura de dados de prioridade; Heap Memory é uma região de memória para objetos. São conceitos distintos.']
+]},
+{id:'trees',name:"Árvores — Teoria",cards:[
+["O que é uma árvore em estruturas de dados?","É uma estrutura hierárquica de nós ligados por relações pai-filho, com uma raiz e sem ciclos."],
+["O que são raiz, pai e filho?","A raiz não tem pai. Um pai é um nó com descendentes diretos, chamados filhos."],
+["O que é um nó folha?","É um nó que não possui filhos."],
+["Qual é a diferença entre árvore e árvore binária?","Numa árvore genérica um nó pode ter vários filhos; numa árvore binária cada nó possui no máximo dois filhos."],
+["O que são profundidade e altura de um nó?","Profundidade é o número de arestas da raiz até ao nó. Altura é o maior número de arestas do nó até uma folha; a convenção deve ser explicitada."],
+["O que é uma subárvore?","É a árvore formada por um nó e todos os seus descendentes."],
+["Qual é a diferença entre árvore binária de pesquisa e Binary Heap?","Na árvore binária de pesquisa, chaves menores ficam na subárvore esquerda e maiores na direita. No heap, a regra é prioridade entre pais e filhos, e a árvore é completa."],
+["O que significa percorrer uma árvore em pré-ordem?","Visitar primeiro o nó, depois a subárvore esquerda e por fim a direita, numa árvore binária."],
+["O que significa percorrer uma árvore em ordem (in-order)?","Visitar a subárvore esquerda, depois o nó e finalmente a subárvore direita. Numa BST válida, obtém as chaves em ordem."],
+["O que significa percorrer uma árvore em pós-ordem?","Visitar a subárvore esquerda, depois a direita e por último o nó."],
+["Por que a recursividade é útil para percorrer árvores?","Porque cada subárvore possui a mesma estrutura do problema original; o caso base costuma ser um nó inexistente."],
+["Qual é a complexidade de visitar todos os nós de uma árvore?","O(n), pois cada um dos n nós precisa ser visitado pelo menos uma vez."],
+["O que diferencia uma árvore completa de uma árvore perfeitamente cheia?","Numa árvore binária completa, os níveis são preenchidos da esquerda para a direita e só o último pode estar incompleto. Numa perfeita, todos os níveis estão completamente preenchidos."],
+["O que é uma árvore balanceada?","É uma árvore cuja altura é controlada para evitar caminhos excessivamente longos, favorecendo operações eficientes."],
+["O que são ancestrais e descendentes?","Ancestrais são os nós no caminho de um nó até à raiz, excluindo o próprio. Descendentes são os nós abaixo dele na hierarquia."]
+]},
+{id:'graphs',name:"Grafos — Teoria",cards:[
+["O que é um grafo?","É uma estrutura formada por vértices (nós) e arestas que representam relações ou ligações entre vértices."],
+["Qual é a diferença entre grafo dirigido e não dirigido?","No dirigido, uma aresta possui sentido (A para B). No não dirigido, a ligação pode ser percorrida nos dois sentidos."],
+["O que é um grafo ponderado?","É um grafo em que as arestas possuem pesos, como distância, custo ou tempo."],
+["O que significa dois vértices serem adjacentes?","São adjacentes quando existe uma aresta diretamente entre eles."],
+["Qual é a diferença entre caminho e ciclo?","Um caminho é uma sequência de vértices ligados por arestas. Um ciclo é um percurso fechado que regressa ao vértice inicial, segundo a definição adotada."],
+["O que é uma componente conexa num grafo não dirigido?","É um conjunto maximal de vértices em que qualquer par está ligado por algum caminho."],
+["O que significa um grafo não dirigido ser conexo?","Significa que existe um caminho entre quaisquer dois vértices do grafo."],
+["O que acontece com um vértice isolado nas componentes conexas?","Ele constitui uma componente conexa sozinho, se não houver arestas que o liguem a outros vértices."],
+["O que é DFS (Depth-First Search)?","Uma busca em profundidade que segue um caminho tão longe quanto possível antes de retroceder."],
+["O que é BFS (Breadth-First Search)?","Uma busca em largura que visita primeiro os vértices mais próximos em número de arestas, normalmente usando uma fila."],
+["Que estruturas são usadas tipicamente em BFS e DFS?","BFS costuma usar Queue; DFS pode usar uma Stack ou chamadas recursivas."],
+["Como descobrir componentes conexas usando BFS ou DFS?","Inicia uma busca em cada vértice ainda não visitado; os vértices alcançados nessa busca formam uma componente."],
+["O que é uma lista de adjacência?","Uma representação que associa a cada vértice a coleção de vértices a que ele está diretamente ligado."],
+["O que é uma matriz de adjacência?","Uma matriz em que a posição (i,j) indica se existe aresta do vértice i para o j, podendo incluir pesos."],
+["Qual é a complexidade de BFS e DFS usando listas de adjacência?","O(V + E), em que V é o número de vértices e E o número de arestas."],
+["Qual é a diferença entre árvore e grafo?","A árvore é um caso especial de grafo: conexo e sem ciclos no caso não dirigido; um grafo geral pode possuir ciclos e componentes desconexas."],
+["Qual é a diferença entre aresta e vértice?","Vértice representa uma entidade ou ponto; aresta representa uma ligação entre dois vértices."]
 ]}
 ];
 const STORE='java-oral-flashcards-v1';let saved={};try{saved=JSON.parse(localStorage.getItem(STORE)||'{}')}catch{};let topic='priority',idx=0,flip=false,orders={};const $=id=>document.getElementById(id),allCards=()=>decks.flatMap(d=>d.cards.map((c,i)=>d.id+':'+i));function key(i){return topic+':'+i}function persist(){try{localStorage.setItem(STORE,JSON.stringify(saved))}catch{}}function activeDeck(){return decks.find(d=>d.id===topic)}function indices(){const d=activeDeck();const filter=$('filter').value;let arr=Array.from({length:d.cards.length},(_,i)=>i).filter(i=>filter==='all'||(filter==='review'&&saved[key(i)]==='review')||(filter==='done'&&saved[key(i)]==='done')||(filter==='new'&&!saved[key(i)]));if(orders[topic])arr.sort((a,b)=>orders[topic].indexOf(a)-orders[topic].indexOf(b));return arr}function render(){const d=activeDeck(),arr=indices();if(!arr.includes(idx))idx=arr[0]??0;$('topics').innerHTML=decks.map(t=>`<button class="topic ${t.id===topic?'active':''}" data-topic="${t.id}">${t.name}<small>${t.cards.filter((_,i)=>saved[t.id+':'+i]==='done').length} de ${t.cards.length} dominados</small></button>`).join('');$('topics').querySelectorAll('button').forEach(b=>b.onclick=()=>{topic=b.dataset.topic;idx=0;flip=false;$('filter').value='all';render()});$('topicTitle').textContent=d.name;$('topicLabel').textContent='Tópico selecionado';$('countLabel').textContent=`${d.cards.length} cartões`;$('globalStat').textContent=`${allCards().filter(k=>saved[k]==='done').length} de ${allCards().length} dominados`;const done=d.cards.filter((_,i)=>saved[key(i)]==='done').length,rev=d.cards.filter((_,i)=>saved[key(i)]==='review').length;$('bar').style.width=(100*done/d.cards.length)+'%';$('sNew').textContent=d.cards.length-done-rev;$('sReview').textContent=rev;$('sDone').textContent=done;const empty=!arr.length;$('card').classList.toggle('answer',flip&&!empty);$('face').textContent=empty?'Sem cartões neste filtro':flip?'Resposta esperada':'Pergunta oral';$('content').textContent=empty?'Altera o filtro ou marca mais cartões para continuar.':d.cards[idx][flip?1:0];$('hint').textContent=empty?'':'Clica no cartão para '+(flip?'ver a pergunta':'revelar a resposta');$('position').textContent=empty?'0 / 0':(arr.indexOf(idx)+1)+' / '+arr.length;$('prev').disabled=empty||arr.indexOf(idx)===0;$('next').disabled=empty||arr.indexOf(idx)===arr.length-1;$('review').disabled=empty;$('done').disabled=empty;$('review').classList.toggle('red',!empty&&saved[key(idx)]==='review');$('done').classList.toggle('green',!empty&&saved[key(idx)]==='done')}
