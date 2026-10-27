@@ -1,10 +1,14 @@
 # Java Collections — Flashcards da Prova Oral
 
+**Português** · [English](README.en.md)
+
+**Abrir os flashcards:** https://joaocalixto.github.io/java-collections-flashcards/
+
 Cartões de estudo para a prova oral de Java Collections e estruturas de dados.
 De um lado do cartão fica a pergunta; do outro, a resposta esperada.
 
-É uma página só (`index.html`). Não precisa instalar nada: basta abrir o arquivo
-no navegador, no computador ou no celular.
+É uma página só (`index.html`). Não precisa instalar nada: basta abrir o link acima
+ou o arquivo no navegador, no computador ou no celular.
 
 ## Tópicos
 
